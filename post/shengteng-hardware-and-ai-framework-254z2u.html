@@ -1,0 +1,577 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)"><meta name="generator" content="Hexo 8.1.1">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.0/css/all.min.css" integrity="sha256-VHqXKFhhMxcpubYf9xiWdCiojEbY9NexQ4jh8AxbvcM=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"example.com","root":"/","images":"/images","scheme":"Pisces","darkmode":true,"version":"8.27.0","exturl":false,"sidebar":{"position":"left","width_expanded":320,"width_dual_column":240,"display":"post","padding":18,"offset":12},"hljswrap":true,"codeblock":{"theme":{"light":"default","dark":"stackoverflow-dark"},"prism":{"light":"prism","dark":"prism-dark"},"copy_button":{"enable":false,"style":null},"fold":{"enable":false,"height":500},"language":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"duration":200,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}}</script><script src="/js/config.js" defer></script>
+
+    <meta name="description" content="昇腾硬件与AI框架昇腾 AI 处理器AI 算力基础 量级单位  ​​  数据类型   INT8：适用于深度学习模型的推理运算 FP16：适用于深度学习模型的训练运算 FP32：主要用于高性能运算（比如科学计算）  通用计算&amp;AI 计算 通用计算以 CPU 提供算力，适合复杂逻辑计算，如大多数通用软件，70% 以上晶体管用于构建 Cache 和控制单元，计算核心从几个到几十个。适用于通用应用">
+<meta property="og:type" content="article">
+<meta property="og:title" content="昇腾硬件与AI框架">
+<meta property="og:url" content="http://example.com/post/shengteng-hardware-and-ai-framework-254z2u.html">
+<meta property="og:site_name" content="maniacta">
+<meta property="og:description" content="昇腾硬件与AI框架昇腾 AI 处理器AI 算力基础 量级单位  ​​  数据类型   INT8：适用于深度学习模型的推理运算 FP16：适用于深度学习模型的训练运算 FP32：主要用于高性能运算（比如科学计算）  通用计算&amp;AI 计算 通用计算以 CPU 提供算力，适合复杂逻辑计算，如大多数通用软件，70% 以上晶体管用于构建 Cache 和控制单元，计算核心从几个到几十个。适用于通用应用">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://raw.githubusercontent.com/maniacta/picgo/main/data/image-20240806114919-9onew6t.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/maniacta/picgo/main/data/image-20240806170811-zvf32zg.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/maniacta/picgo/main/data/image-20240807090637-c3t6fgq.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/maniacta/picgo/main/data/image-20240807092117-8gfxwez.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/maniacta/picgo/main/data/image-20240807151551-sjy2gwd.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/maniacta/picgo/main/data/image-20240807164908-tsg23tn.png">
+<meta property="article:published_time" content="2024-08-06T03:44:27.000Z">
+<meta property="article:modified_time" content="2024-08-12T09:21:45.000Z">
+<meta property="article:author" content="FJX">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/maniacta/picgo/main/data/image-20240806114919-9onew6t.png">
+
+
+<link rel="canonical" href="http://example.com/post/shengteng-hardware-and-ai-framework-254z2u">
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"http://example.com/post/shengteng-hardware-and-ai-framework-254z2u.html","path":"/post/shengteng-hardware-and-ai-framework-254z2u.html","title":"昇腾硬件与AI框架"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>昇腾硬件与AI框架 | maniacta</title>
+  
+
+
+
+
+
+
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous" defer></script>
+<script src="/js/utils.js" defer></script><script src="/js/motion.js" defer></script><script src="/js/sidebar.js" defer></script><script src="/js/next-boot.js" defer></script>
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">maniacta</p>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="搜索" role="button">
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%98%87%E8%85%BE%E7%A1%AC%E4%BB%B6%E4%B8%8EAI%E6%A1%86%E6%9E%B6"><span class="nav-number">1.</span> <span class="nav-text">昇腾硬件与AI框架</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%98%87%E8%85%BE-AI-%E5%A4%84%E7%90%86%E5%99%A8"><span class="nav-number">1.1.</span> <span class="nav-text">昇腾 AI 处理器</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#AI-%E7%AE%97%E5%8A%9B%E5%9F%BA%E7%A1%80"><span class="nav-number">1.1.1.</span> <span class="nav-text">AI 算力基础</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%80%9A%E7%94%A8%E8%AE%A1%E7%AE%97-AI-%E8%AE%A1%E7%AE%97"><span class="nav-number">1.1.2.</span> <span class="nav-text">通用计算&amp;AI 计算</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%BE%BE%E8%8A%AC%E5%A5%87%E6%9E%B6%E6%9E%84"><span class="nav-number">1.1.3.</span> <span class="nav-text">达芬奇架构</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%98%87%E8%85%BE-910-%E8%8A%AF%E7%89%87%E5%86%85%E9%83%A8%E6%9E%84%E6%88%90"><span class="nav-number">1.1.4.</span> <span class="nav-text">昇腾 910 芯片内部构成</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#NPU-%E5%B9%B6%E8%A1%8C%E8%AE%A1%E7%AE%97%E6%9E%B6%E6%9E%84%E6%8A%BD%E8%B1%A1"><span class="nav-number">1.1.5.</span> <span class="nav-text">NPU 并行计算架构抽象</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#CANN-%E6%A1%86%E6%9E%B6"><span class="nav-number">1.2.</span> <span class="nav-text">CANN 框架</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%89%E5%A4%A7%E5%BC%80%E5%8F%91%E6%A8%A1%E5%BC%8F"><span class="nav-number">1.2.1.</span> <span class="nav-text">三大开发模式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%8F%90%E5%8D%87%E5%85%A8%E6%A0%88%E8%BE%85%E5%8A%A9%E5%B7%A5%E5%85%B7%E9%93%BE"><span class="nav-number">1.2.2.</span> <span class="nav-text">提升全栈辅助工具链</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#AscendCL-%E6%98%87%E8%85%BE%E8%AE%A1%E7%AE%97%E8%AF%AD%E8%A8%80%E5%BC%80%E5%8F%91%E6%8E%A5%E5%8F%A3"><span class="nav-number">1.2.3.</span> <span class="nav-text">AscendCL 昇腾计算语言开发接口</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%98%87%E8%85%BE%E8%AE%A1%E7%AE%97%E6%9C%8D%E5%8A%A1%E5%B1%82"><span class="nav-number">1.2.4.</span> <span class="nav-text">昇腾计算服务层</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%98%87%E8%85%BE%E8%AE%A1%E7%AE%97%E7%BC%96%E8%AF%91%E5%B1%82"><span class="nav-number">1.2.5.</span> <span class="nav-text">昇腾计算编译层</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%98%87%E8%85%BE%E8%AE%A1%E7%AE%97%E6%89%A7%E8%A1%8C%E5%B1%82"><span class="nav-number">1.2.6.</span> <span class="nav-text">昇腾计算执行层</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%98%87%E8%85%BE%E8%AE%A1%E7%AE%97%E5%9F%BA%E7%A1%80%E5%B1%82"><span class="nav-number">1.2.7.</span> <span class="nav-text">昇腾计算基础层</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Ascend-C"><span class="nav-number">1.3.</span> <span class="nav-text">Ascend C</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%AE%97%E5%AD%90"><span class="nav-number">1.3.1.</span> <span class="nav-text">算子</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Ascend-C-1"><span class="nav-number">1.3.2.</span> <span class="nav-text">Ascend C</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%BE%BE%E8%8A%AC%E5%A5%87%E7%AE%97%E5%AD%90%E7%BC%96%E7%A8%8B%E7%9A%84%E5%85%B3%E9%94%AE%E6%8A%80%E6%9C%AF%E9%9A%BE%E7%82%B9"><span class="nav-number">1.3.3.</span> <span class="nav-text">达芬奇算子编程的关键技术难点</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Ascend-C-%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80%E8%AE%BE%E8%AE%A1%E7%9A%84%E7%9B%AE%E6%A0%87"><span class="nav-number">1.3.4.</span> <span class="nav-text">Ascend C 编程语言设计的目标</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Ascend-C-%E6%80%BB%E4%BD%93%E6%80%9D%E8%B7%AF%EF%BC%8C%E5%AF%B9-DaVinci-%E7%BC%96%E7%A8%8B-3-%E4%B8%AA%E5%85%B3%E9%94%AE%E9%97%AE%E9%A2%98%E7%9A%84%E8%A7%A3%E5%86%B3%E6%96%B9%E6%B3%95"><span class="nav-number">1.3.5.</span> <span class="nav-text">Ascend C 总体思路，对 DaVinci 编程 3 个关键问题的解决方法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Ascend-C-%E6%9E%B6%E6%9E%84%E7%BB%84%E6%88%90"><span class="nav-number">1.3.6.</span> <span class="nav-text">Ascend C 架构组成</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%AE%97%E5%AD%90%E5%BC%80%E5%8F%91"><span class="nav-number">1.4.</span> <span class="nav-text">算子开发</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#SPMD-%E6%A8%A1%E5%9E%8B"><span class="nav-number">1.4.1.</span> <span class="nav-text">SPMD 模型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%B9%B6%E8%A1%8C%E8%AE%A1%E7%AE%97%E6%9E%B6%E6%9E%84%E6%8A%BD%E8%B1%A1"><span class="nav-number">1.4.2.</span> <span class="nav-text">并行计算架构抽象</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%AE%A1%E7%AE%97%E5%8D%95%E5%85%83"><span class="nav-number">1.4.2.1.</span> <span class="nav-text">计算单元</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%AD%98%E5%82%A8%E5%8D%95%E5%85%83"><span class="nav-number">1.4.2.2.</span> <span class="nav-text">存储单元</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%90%AC%E8%BF%90%E5%8D%95%E5%85%83"><span class="nav-number">1.4.2.3.</span> <span class="nav-text">搬运单元</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%BC%82%E6%AD%A5%E6%8C%87%E4%BB%A4%E6%B5%81"><span class="nav-number">1.4.2.4.</span> <span class="nav-text">异步指令流</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%90%8C%E6%AD%A5%E4%BF%A1%E5%8F%B7%E6%B5%81"><span class="nav-number">1.4.2.5.</span> <span class="nav-text">同步信号流</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%AE%A1%E7%AE%97%E6%95%B0%E6%8D%AE%E6%B5%81"><span class="nav-number">1.4.2.6.</span> <span class="nav-text">计算数据流</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#TPIPE-%E5%B9%B6%E8%A1%8C%E8%AE%A1%E7%AE%97%E7%BC%96%E7%A8%8B%E8%8C%83%E5%BC%8F"><span class="nav-number">1.4.3.</span> <span class="nav-text">TPIPE 并行计算编程范式</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Ascend-C-%E7%9A%84%E5%B9%B6%E8%A1%8C%E7%BC%96%E7%A8%8B%E8%8C%83%E5%BC%8F%E6%A0%B8%E5%BF%83%E8%A6%81%E7%B4%A0"><span class="nav-number">1.4.3.1.</span> <span class="nav-text">Ascend C 的并行编程范式核心要素</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%85%B8%E5%9E%8B%E7%9A%84%E8%AE%A1%E7%AE%97%E8%8C%83%E5%BC%8F"><span class="nav-number">1.4.3.2.</span> <span class="nav-text">典型的计算范式</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Ascend-C-%E7%AE%97%E5%AD%90%E7%BC%96%E7%A8%8B-API"><span class="nav-number">1.4.4.</span> <span class="nav-text">Ascend C 算子编程 API</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%A8%8B%E5%BA%8F%E5%91%98%E5%AF%B9-Ascend-C-TPIPE-%E7%BC%96%E7%A8%8B%E8%8C%83%E5%BC%8F%E7%AE%97%E5%AD%90%E4%BB%A3%E7%A0%81%E7%9A%84%E7%90%86%E8%A7%A3"><span class="nav-number">1.4.4.1.</span> <span class="nav-text">程序员对 Ascend C TPIPE 编程范式算子代码的理解</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Ascend-C-%E4%B8%8E-CUDA-%E7%AE%97%E5%AD%90%E7%BC%96%E7%A8%8B%E5%AF%B9%E6%AF%94"><span class="nav-number">1.5.</span> <span class="nav-text">Ascend C 与 CUDA 算子编程对比</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%BC%A9%E7%95%A5%E8%AF%AD"><span class="nav-number">1.6.</span> <span class="nav-text">缩略语</span></a></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">FJX</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">2</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+  </nav>
+</div>
+
+        </div>
+      </div>
+    </div>
+
+    
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/post/shengteng-hardware-and-ai-framework-254z2u.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="FJX">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="maniacta">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="昇腾硬件与AI框架 | maniacta">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          昇腾硬件与AI框架
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2024-08-06 11:44:27" itemprop="dateCreated datePublished" datetime="2024-08-06T11:44:27+08:00">2024-08-06</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2024-08-12 17:21:45" itemprop="dateModified" datetime="2024-08-12T17:21:45+08:00">2024-08-12</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody"><h1 id="昇腾硬件与AI框架"><a href="#昇腾硬件与AI框架" class="headerlink" title="昇腾硬件与AI框架"></a>昇腾硬件与AI框架</h1><h2 id="昇腾-AI-处理器"><a href="#昇腾-AI-处理器" class="headerlink" title="昇腾 AI 处理器"></a>昇腾 AI 处理器</h2><h3 id="AI-算力基础"><a href="#AI-算力基础" class="headerlink" title="AI 算力基础"></a>AI 算力基础</h3><ol>
+<li>量级单位</li>
+</ol>
+<p>​<img src="https://raw.githubusercontent.com/maniacta/picgo/main/data/image-20240806114919-9onew6t.png" alt="量级单位">​</p>
+<ol start="2">
+<li>数据类型</li>
+</ol>
+<ul>
+<li>INT8：适用于深度学习模型的<strong>推理运算</strong></li>
+<li>FP16：适用于深度学习模型的<strong>训练运算</strong></li>
+<li>FP32：主要用于<strong>高性能运算</strong>（比如科学计算）</li>
+</ul>
+<h3 id="通用计算-AI-计算"><a href="#通用计算-AI-计算" class="headerlink" title="通用计算&amp;AI 计算"></a>通用计算&amp;AI 计算</h3><ul>
+<li><strong>通用计算</strong>以 CPU 提供算力，适合<strong>复杂逻辑计算</strong>，如大多数通用软件，70% 以上晶体管用于<strong>构建 Cache 和控制单元</strong>，计算核心从几个到几十个。<strong>适用于通用应用</strong>：办公、数据库、数值计算（气象预测、流体仿真、电磁仿真）等。</li>
+<li><strong>AI 计算</strong>以 GPU（NVIDIA）或 NPU（Ascend）提供算力，适合<strong>逻辑简单，计算密集型高并发任务</strong>，70% 以上晶体管用于<strong>构建计算单元</strong>，计算核心几千或上万个。<strong>适用于特定应用</strong>：图像识别（人脸识别、车牌识别、动作识别、物品检测、周界检测等），自然语言处理（机器翻译、语音识别、文本生成、情感分析等），搜索推荐，辅助驾驶，趋势检测等。</li>
+</ul>
+<h3 id="达芬奇架构"><a href="#达芬奇架构" class="headerlink" title="达芬奇架构"></a>达芬奇架构</h3><p>昇腾 910 单 Core 单时钟周期最大可完成 4096 次运算（$Cube&#x3D;16<em>16</em>N， N&#x3D;1&#x2F;2&#x2F;4&#x2F;8&#x2F;16$）</p>
+<h3 id="昇腾-910-芯片内部构成"><a href="#昇腾-910-芯片内部构成" class="headerlink" title="昇腾 910 芯片内部构成"></a>昇腾 910 芯片内部构成</h3><ul>
+<li><p>通用 AI CPU</p>
+</li>
+<li><p>DVPP 图像增强</p>
+</li>
+<li><p>Ascend910 支持 DSA 随机数生成</p>
+</li>
+<li><p>AI CORE（算力最核心部件，有多个核心）</p>
+</li>
+<li><p>内存层次</p>
+<ol>
+<li>Global Mem（GM）</li>
+<li>L2 Cache</li>
+<li>Local buffer（AI CORE 内部）</li>
+<li>AI CPU 等其他计算单元</li>
+</ol>
+</li>
+</ul>
+<h3 id="NPU-并行计算架构抽象"><a href="#NPU-并行计算架构抽象" class="headerlink" title="NPU 并行计算架构抽象"></a>NPU 并行计算架构抽象</h3><ul>
+<li><p>AI Core 内<strong>异步计算</strong>过程（指令流）</p>
+<ol>
+<li>标量计算单元<strong>读取指令序列</strong></li>
+<li>标量计算单元<strong>发射指令到对应单元</strong></li>
+<li>各处理单元<strong>并行执行指令</strong>​</li>
+</ol>
+</li>
+<li><p>AI Core <strong>内存搬运</strong>过程（数据流）</p>
+<ol>
+<li>DMA 数据<strong>搬入 LocalMem</strong></li>
+<li>计算单元 <strong>LocalMem 内数据完成计算，写回 LocalMem</strong></li>
+<li>DMA 数据<strong>搬出到 GlobalMem</strong></li>
+</ol>
+</li>
+<li><p>AI Core 内核心组件</p>
+<ol>
+<li><strong>标量计算单元：</strong> 负责计算流程控制和地址计算</li>
+<li><strong>向量计算单元：</strong> 负责向量 Tensor 数据计算</li>
+<li><strong>矩阵计算单元：</strong> 负责矩阵 Cube 数据计算</li>
+<li><strong>DMA 搬运单元：</strong> 负责在 LocalMem 和 GlobalMem 之间搬运数据（搬入&amp;搬出）</li>
+</ol>
+</li>
+</ul>
+<p>‍</p>
+<h2 id="CANN-框架"><a href="#CANN-框架" class="headerlink" title="CANN 框架"></a>CANN 框架</h2><p>昇腾 CANN 全面支持业内 AI 框架（PyTorch，昇思，TensorFlow，飞桨，Caffe，Jittor 计图等），支持 GPU 生态（模型&#x2F;加速库）的 API 级迁移。</p>
+<p>Ascend C 昇腾算子编程语言支持原生开发，遵循 C&#x2F;C++ 标准规范，结构化核函数编程，自动化流水线并行调度。</p>
+<h3 id="三大开发模式"><a href="#三大开发模式" class="headerlink" title="三大开发模式"></a>三大开发模式</h3><ul>
+<li><strong>算子开发</strong>：开发、部署、调试，全流程工程化。</li>
+<li><strong>模型开发</strong>：内置高性能模型，开源框架一键式迁移，通过算子原型构图。</li>
+<li><strong>应用开发</strong>：推理应用开发，第三方框架调用，第三方 Lib 库开发</li>
+</ul>
+<h3 id="提升全栈辅助工具链"><a href="#提升全栈辅助工具链" class="headerlink" title="提升全栈辅助工具链"></a>提升全栈辅助工具链</h3><ul>
+<li><strong>推理服务全栈工具链</strong>：模型压缩编译部署全栈优化。</li>
+<li><strong>系统化分析工具链</strong>：Profling&amp;精度比对工具，快速识别瓶颈，自动优化建议。</li>
+<li><strong>AOE 智能调优工具</strong>：计算工程自动寻优，零门槛高效率。</li>
+</ul>
+<h3 id="AscendCL-昇腾计算语言开发接口"><a href="#AscendCL-昇腾计算语言开发接口" class="headerlink" title="AscendCL 昇腾计算语言开发接口"></a>AscendCL 昇腾计算语言开发接口</h3><ul>
+<li><p><strong>应用开发接口</strong>：提供深度学习推理计算、图像图像预处理、单算子加速计算能力，实现对昇腾硬件计算的调用。</p>
+<table>
+<thead>
+<tr>
+<th>使用场景</th>
+<th><span data-type="text" style="color: var(--b3-font-color8);" id="">优势</span></th>
+</tr>
+</thead>
+<tbody><tr>
+<td>开发应用</td>
+<td>高度抽象</td>
+</tr>
+<tr>
+<td>供第三方框架调用</td>
+<td>向后兼容</td>
+</tr>
+<tr>
+<td>供第三方开发 lib 库</td>
+<td>零感知芯片</td>
+</tr>
+</tbody></table>
+</li>
+<li><p><strong>图开发</strong>：提供<span data-type="text" id="" style="color: var(--b3-font-color8);">统一网络构图接口</span>，支持多框架，支持用户在昇腾芯片上快速部署神经网络业务。</p>
+<p><strong>支持的构图方式</strong>：</p>
+<ol>
+<li>通过算子原型构图</li>
+<li>通过 Parser 解析为 IR 图</li>
+</ol>
+</li>
+<li><p><strong>算子开发</strong>：Ascend C 是 CANN 在算子开发场景的编程语言，原生支持 C&amp;C++ 标准规范，<span data-type="text" id="" style="color: var(--b3-font-color8);">最大化匹配用户开发习惯</span>。</p>
+<p><strong>关键技术：</strong></p>
+<ol>
+<li>结构化函数编程</li>
+<li>自动化流水线并行调度</li>
+<li>CPU&#x2F;NPU 孪生调试</li>
+</ol>
+</li>
+</ul>
+<h3 id="昇腾计算服务层"><a href="#昇腾计算服务层" class="headerlink" title="昇腾计算服务层"></a>昇腾计算服务层</h3><ul>
+<li><p><strong>昇腾算子库 AOL</strong>：算子在硬件上的加速计算构成了加速神经网络的基础和核心！（NN 算子库、BLAS 算子库、DVPP 算子库、HCCL 算子库、AIPP 算子库）</p>
+<blockquote>
+<p>NN（Neural Network）</p>
+<p>BLAS（Basic Linear Algebra Subprograms）</p>
+<p>DVPP（Digital Video Pre-Processor）</p>
+<p>AIPP（AI Pre-Processing）</p>
+<p>HCCL（Huawei Collective Communication Library）</p>
+</blockquote>
+</li>
+<li><p><strong>昇腾调优引擎 AOE</strong>：AOE 用于在<span data-type="text" style="color: var(--b3-font-color8);" id="">推理、训练</span>等场景对<span data-type="text" style="color: var(--b3-font-color8);" id="">模型、算子、子图</span>等进行调优，充分利用硬件资源，不断提升网络的性能！</p>
+</li>
+</ul>
+<h3 id="昇腾计算编译层"><a href="#昇腾计算编译层" class="headerlink" title="昇腾计算编译层"></a>昇腾计算编译层</h3><p>​<img src="https://raw.githubusercontent.com/maniacta/picgo/main/data/image-20240806170811-zvf32zg.png" alt="昇腾计算编译层">​</p>
+<h3 id="昇腾计算执行层"><a href="#昇腾计算执行层" class="headerlink" title="昇腾计算执行层"></a>昇腾计算执行层</h3><ul>
+<li><strong>Graph Executor</strong>：图加载，图执行。</li>
+<li><strong>AIPP</strong>：改变图片尺寸，色域转换，归一化配置。</li>
+<li><strong>DVPP</strong>：JPEG 编解码，PNG 解码，视频编解码，视觉预处理。</li>
+<li><strong>HCCL</strong>：Rank 管理，梯度切分，集合通信。</li>
+<li><strong>Runtime</strong>：会话管理，算子库管理，图状态管理，引擎管理。</li>
+</ul>
+<h3 id="昇腾计算基础层"><a href="#昇腾计算基础层" class="headerlink" title="昇腾计算基础层"></a>昇腾计算基础层</h3><ul>
+<li><strong>RMS</strong>：资源管理，负责管理与调度昇腾设备的计算、显存等关键资源。</li>
+<li><strong>CMS</strong>：通信管理，负责提供片内、片间高效通信。</li>
+<li><strong>DMS</strong>：设备管理，负责对昇腾设备进行配置、切分、升级、故障检测等管理。</li>
+<li><strong>DRV</strong>：芯片 IP 驱动，负责使能硬件。</li>
+<li><strong>UTILITY</strong>：公共服务，负责提供基础库和系统维测能力。</li>
+</ul>
+<h2 id="Ascend-C"><a href="#Ascend-C" class="headerlink" title="Ascend C"></a>Ascend C</h2><h3 id="算子"><a href="#算子" class="headerlink" title="算子"></a>算子</h3><ul>
+<li>算子在<strong>网络中定义</strong>：算子对应网络中层或者节点的计算逻辑。</li>
+<li>算子在<strong>数学中的定义</strong>：一个函数空间到函数空间上的映射 O：X→X。</li>
+<li>广义地讲，对任何函数进行某一项操作都可以认为是一个算子。比如微分算子，不定积分算子等。</li>
+<li>常见算子举例： tanh、ReLU、Conv2D 等。</li>
+</ul>
+<h3 id="Ascend-C-1"><a href="#Ascend-C-1" class="headerlink" title="Ascend C"></a>Ascend C</h3><p>Ascend C 是 CANN 针对算子开发场景推出的编程语言，<strong>原生支持 C 和 C++ 标准规范</strong>，<strong>最大化匹配用户开发习惯</strong>；通过<strong>多层接口抽象、自动并行计算、孪生调试</strong>等关键技术，极大提高算子开发效率，助力 AI 开发者低成本完成算子开发和模型调优部署。</p>
+<p>Ascend C 开发自定义算子的<strong>优势</strong>：</p>
+<ul>
+<li>C&#x2F;C++ 原语编程，最大化匹配用户的开发习惯；</li>
+<li>编程模型屏蔽硬件差异，编程范式提高开发效率；</li>
+<li>多层级 API 封装，从简单到灵活，兼顾易用与高效；</li>
+<li>孪生调试，CPU 侧模拟 NPU 侧的行为，可优先在 CPU 侧调试。</li>
+</ul>
+<h3 id="达芬奇算子编程的关键技术难点"><a href="#达芬奇算子编程的关键技术难点" class="headerlink" title="达芬奇算子编程的关键技术难点"></a>达芬奇算子编程的关键技术难点</h3><ul>
+<li>复杂指令的语义：程序的语义如何影射到复杂的指令序列上完成？</li>
+<li>核内层次化的显式 Buffer 如何分配，释放，复用？是该暴露给程序员，还是用工具来隐藏？</li>
+<li>多个并行执行单元之间的流水和同步编排在单一个线程内实现。</li>
+<li>并行计算算法：算子的并行切分（tiling）策略，包含多核并行切分和核内并行切分技术。</li>
+</ul>
+<h3 id="Ascend-C-编程语言设计的目标"><a href="#Ascend-C-编程语言设计的目标" class="headerlink" title="Ascend C 编程语言设计的目标"></a>Ascend C 编程语言设计的目标</h3><ol>
+<li>高性能：能够写出高性能算子；</li>
+<li>完备性：能够发挥芯片的能力；</li>
+<li>易于编程：易于学习理解，符合编程习惯，简化编程模型，在编程语言层面解决 3 个关键问题：地址管理，流水同步，复杂指令映射问题；</li>
+<li>易于调试；</li>
+<li>兼容性：跨代芯片的算子源码兼容，昇腾系列芯片升级时只需要对算子源码进行重新编译即可。</li>
+</ol>
+<h3 id="Ascend-C-总体思路，对-DaVinci-编程-3-个关键问题的解决方法"><a href="#Ascend-C-总体思路，对-DaVinci-编程-3-个关键问题的解决方法" class="headerlink" title="Ascend C 总体思路，对 DaVinci 编程 3 个关键问题的解决方法"></a>Ascend C 总体思路，对 DaVinci 编程 3 个关键问题的解决方法</h3><ol>
+<li><p>封装：提供<strong>多层次的稳定</strong> API 封装。</p>
+<ul>
+<li>实现不同型号的核之间的代码兼容。</li>
+<li>低等级的 API 易于表达常用的语义。</li>
+<li>高等级的 API 可表达更复杂场景所需的功能。</li>
+</ul>
+</li>
+<li><p>抽象：简化 Buffer 的使用。</p>
+<ul>
+<li>程序员依然管理了内存，但针对典型的流水方式的数据传递，设计 API 简化了难度。</li>
+</ul>
+</li>
+<li><p>易于理解 TPIPE 流水编程范式解决流水并行问题，引入 Que 操作，Buffer 操作，解决流水同步问题。</p>
+</li>
+</ol>
+<h3 id="Ascend-C-架构组成"><a href="#Ascend-C-架构组成" class="headerlink" title="Ascend C 架构组成"></a>Ascend C 架构组成</h3><p>​<img src="https://raw.githubusercontent.com/maniacta/picgo/main/data/image-20240807090637-c3t6fgq.png" alt="Ascend C 架构组成">​</p>
+<h2 id="算子开发"><a href="#算子开发" class="headerlink" title="算子开发"></a>算子开发</h2><p>Ascend C 算子编程是 SPMD（Single-Program Multiple-Data）编程，SPMD 是一种常用的并行计算的方法，是提高计算速度的有效手段。</p>
+<h3 id="SPMD-模型"><a href="#SPMD-模型" class="headerlink" title="SPMD 模型"></a>SPMD 模型</h3><p>具体到 Ascend C 编程模型中的应用，是将需要处理的数据被拆分并同时在多个计算核心上运行，从而获取更高的性能。多个 AI Core 共享相同的指令代码，每个核上的运行实例<strong>唯一的区别是 block_idx 不同</strong>，每个核通过不同的 block_idx 来识别自己的身份。block 的概念类似于进程的概念，block_idx 就是标识进程唯一性的进程 ID。并行计算过程的示意图如下图所示。</p>
+<p>​<img src="https://raw.githubusercontent.com/maniacta/picgo/main/data/image-20240807092117-8gfxwez.png" alt="并行计算过程">​</p>
+<p>下面的代码片段取自于 Ascend C Add 算子的实现代码，算子被调用时，所有的计算核心都执行相同的实现代码，入口函数的入参也是相同的。每个核上处理的数据地址需要在起始地址上增加 <strong>GetBlockIdx()</strong> *BLOCK_LENGTH（每个 block 处理的数据长度）的偏移来获取。这样也就实现了多核并行计算的数据切分。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">KernelAdd</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function">__aicore__ <span class="keyword">inline</span> <span class="title">KernelAdd</span><span class="params">()</span> </span>&#123;&#125;</span><br><span class="line">    <span class="function">__aicore__ <span class="keyword">inline</span> <span class="type">void</span> <span class="title">Init</span><span class="params">(GM_ADDR x, GM_ADDR y, GM_ADDR z)</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="comment">// get start index for current core, core parallel</span></span><br><span class="line">        xGm.<span class="built_in">SetGlobalBuffer</span>((__gm__ half*)x + BLOCK_LENGTH * <span class="built_in">GetBlockIdx</span>(), BLOCK_LENGTH);</span><br><span class="line">        yGm.<span class="built_in">SetGlobalBuffer</span>((__gm__ half*)y + BLOCK_LENGTH * <span class="built_in">GetBlockIdx</span>(), BLOCK_LENGTH);</span><br><span class="line">        zGm.<span class="built_in">SetGlobalBuffer</span>((__gm__ half*)z + BLOCK_LENGTH * <span class="built_in">GetBlockIdx</span>(), BLOCK_LENGTH);</span><br><span class="line">        <span class="comment">// pipe alloc memory to queue, the unit is Bytes</span></span><br><span class="line">        pipe.<span class="built_in">InitBuffer</span>(inQueueX, BUFFER_NUM, TILE_LENGTH * <span class="built_in">sizeof</span>(half));</span><br><span class="line">        pipe.<span class="built_in">InitBuffer</span>(inQueueY, BUFFER_NUM, TILE_LENGTH * <span class="built_in">sizeof</span>(half));</span><br><span class="line">        pipe.<span class="built_in">InitBuffer</span>(outQueueZ, BUFFER_NUM, TILE_LENGTH * <span class="built_in">sizeof</span>(half));</span><br><span class="line">    &#125;</span><br><span class="line">    ...</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">// 实现核函数</span></span><br><span class="line"><span class="keyword">extern</span> <span class="string">&quot;C&quot;</span> <span class="function">__global__ __aicore__ <span class="type">void</span> <span class="title">add_custom</span><span class="params">(GM_ADDR x, GM_ADDR y, GM_ADDR z)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="comment">// 初始化算子类，算子类提供算子初始化和核心处理等方法</span></span><br><span class="line">    KernelAdd op;</span><br><span class="line">    <span class="comment">// 初始化函数，获取该核函数需要处理的输入输出地址，同时完成必要的内存初始化工作</span></span><br><span class="line">    op.<span class="built_in">Init</span>(x, y, z);</span><br><span class="line">    <span class="comment">// 核心处理函数，完成算子的数据搬运与计算等核心逻辑</span></span><br><span class="line">    op.<span class="built_in">Process</span>();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="并行计算架构抽象"><a href="#并行计算架构抽象" class="headerlink" title="并行计算架构抽象"></a>并行计算架构抽象</h3><p>Ascend C 基于硬件抽象架构进行编程， 进行屏蔽不同硬件之间的差异。</p>
+<p>​<img src="https://raw.githubusercontent.com/maniacta/picgo/main/data/image-20240807151551-sjy2gwd.png" alt="硬件架构抽象" title="硬件架构抽象">​</p>
+<p>AI Core 中包含<strong>计算单元、存储单元、搬运单元</strong>等核心组件。</p>
+<h4 id="计算单元"><a href="#计算单元" class="headerlink" title="计算单元"></a>计算单元</h4><ul>
+<li>Scalar 计算单元任务是进行计算流程控制和地址计算。并把向量计算、矩阵计算、数据搬运、同步指令发射给对应单元执行。</li>
+<li>Vector 计算单元负责执行向量计算。</li>
+<li>Cube 计算单元负责执行矩阵计算。</li>
+</ul>
+<h4 id="存储单元"><a href="#存储单元" class="headerlink" title="存储单元"></a>存储单元</h4><ul>
+<li>Local Memory：AI Core 的内部存储。</li>
+</ul>
+<h4 id="搬运单元"><a href="#搬运单元" class="headerlink" title="搬运单元"></a><strong>搬运单元</strong></h4><ul>
+<li>DMA（Direct Memory Access）：负责在 Global Memory 和 Local Memory 之间搬运数据，包含搬运单元 MTE2（Memory Transfer Engine，数据搬入单元），MTE3（数据搬出单元）等。</li>
+</ul>
+<h4 id="异步指令流"><a href="#异步指令流" class="headerlink" title="异步指令流"></a><strong>异步指令流</strong></h4><ul>
+<li>Scalar 计算单元读取指令序列，并把向量计算、矩阵计算、数据搬运指令发射给对应单元的指令队列；</li>
+<li>向量计算单元、矩阵计算单元、数据搬运单元异步的并行执行接收到的指令。</li>
+</ul>
+<h4 id="同步信号流"><a href="#同步信号流" class="headerlink" title="同步信号流"></a><strong>同步信号流</strong></h4><ul>
+<li>不同的指令间有可能存在依赖关系，为了保证不同指令队列间的指令按照正确的逻辑关系执行，Scalar 计算单元也会给对应单元下发同步指令。</li>
+</ul>
+<h4 id="计算数据流"><a href="#计算数据流" class="headerlink" title="计算数据流"></a><strong>计算数据流</strong></h4><ul>
+<li>DMA 搬入单元把数据搬运到 Local Memory；</li>
+<li>Vector&#x2F;Cube 计算单元完成数据计算，并把计算结果写回 Local Memory；</li>
+<li>DMA 搬出单元把处理好的数据搬运回 Global Memory。</li>
+</ul>
+<h3 id="TPIPE-并行计算编程范式"><a href="#TPIPE-并行计算编程范式" class="headerlink" title="TPIPE 并行计算编程范式"></a>TPIPE 并行计算编程范式</h3><h4 id="Ascend-C-的并行编程范式核心要素"><a href="#Ascend-C-的并行编程范式核心要素" class="headerlink" title="Ascend C 的并行编程范式核心要素"></a>Ascend C 的并行编程范式核心要素</h4><ul>
+<li>一组并行计算任务</li>
+<li>通过队列实现任务之间的通信和同步</li>
+<li>程序员自主表达对并行计算任务和资源的调度</li>
+</ul>
+<h4 id="典型的计算范式"><a href="#典型的计算范式" class="headerlink" title="典型的计算范式"></a>典型的计算范式</h4><ul>
+<li>基本的 VEC 编程范式：计算任务分为 CopyIn， Compute，CopyOut</li>
+<li>基本的 CUB 编程范式：计算任务分为 CopyIn，Split， Compute，Aggregate，CopyOut</li>
+<li>复杂的 CUB&#x2F;VEC 编程范式，通过将 CUB&#x2F;VEC 的 Out&#x2F;In 组合在一起的方式来实现复杂计算数据流</li>
+</ul>
+<h3 id="Ascend-C-算子编程-API"><a href="#Ascend-C-算子编程-API" class="headerlink" title="Ascend C 算子编程 API"></a>Ascend C 算子编程 API</h3><p>Ascend C 算子采用标准 C++ 语法和一组类库 API 进行编程</p>
+<ul>
+<li><p>Ascend C 类库基本 API</p>
+<ol>
+<li>计算 API: 向量计算 API，矩阵计算 API</li>
+<li>搬运 API：数据搬运 API</li>
+<li>同步 API：队列操作 API，内存管理 API</li>
+</ol>
+</li>
+<li><p>Ascend C 类库 API 是类 SIMD 方式，计算操作数都是 Tensor 类型：GlobalTensor 和 LocalTensor。</p>
+<ul>
+<li><p><strong>整个 tensor 参与计算</strong>：通过运算符重载的方式实现，支持 +, -, *, &#x2F;, |, &amp;, &lt;, &gt;, &lt;=, &gt;=, ==, !=，实现计算的简化表达。例如：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">dst=src1+src2</span><br></pre></td></tr></table></figure></li>
+<li><p><strong>tensor 前 n 个数据计算</strong>：针对源操作数的连续 n 个数据进行计算并连续写入目的操作数，解决一维 tensor 的连续计算问题。例如：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Add(dst, src1, src2, n);</span><br></pre></td></tr></table></figure></li>
+<li><p><strong>tensor 高维切分计算：</strong>  功能灵活的计算 API，充分发挥硬件优势，支持对每个操作数的 DataBlock stride，Repeat stride，Mask 等参数的操作。</p>
+</li>
+</ul>
+</li>
+<li><p>​<img src="https://raw.githubusercontent.com/maniacta/picgo/main/data/image-20240807164908-tsg23tn.png" alt="计算 API 几种计算方式的特点" title="计算API几种计算方式的特点">​</p>
+<h4 id="程序员对-Ascend-C-TPIPE-编程范式算子代码的理解"><a href="#程序员对-Ascend-C-TPIPE-编程范式算子代码的理解" class="headerlink" title="程序员对 Ascend C TPIPE 编程范式算子代码的理解"></a>程序员对 Ascend C TPIPE 编程范式算子代码的理解</h4></li>
+<li><p>每个 Stage 的编程范式：</p>
+<ul>
+<li>每个 Stage 首先要获得 localMem 的内存，所以要先调用 Alloc()申请内存，或者从上游队列 Deque()一块内存数据；</li>
+<li>完成计算或者数据搬运；</li>
+<li>把第 2 步处理好数据调用 enque()入队；</li>
+<li>调用 Free()释放不再需要的内存。</li>
+</ul>
+</li>
+</ul>
+<h2 id="Ascend-C-与-CUDA-算子编程对比"><a href="#Ascend-C-与-CUDA-算子编程对比" class="headerlink" title="Ascend C 与 CUDA 算子编程对比"></a>Ascend C 与 CUDA 算子编程对比</h2><ul>
+<li><p>CUDA 编程灵活性高，但 Ascend C 易用性更好</p>
+<ul>
+<li>CUDA 核函数要对每个线程块进行管理，而 Ascend C 的核函数只对单个进程进行管理。</li>
+<li>CUDA 的 shared memory 被一个线程块内多个线程共享，而 Ascend C 的 Local memory 被单个进程独占。</li>
+</ul>
+</li>
+<li><p>Ascend C 采用 CUDA 类似的结构化核函数编程范式，降低用户学习成本</p>
+</li>
+<li><p>采用与 CUDA 相同功能模块的 Runtime 调度框架，降低用户迁移成本</p>
+<ul>
+<li><strong>Runtime：</strong> 为神经网络的任务分配提供了资源管理通道。Runtime 运行在应用程序的进程空间中，为应用程序提供了存储（Memory）管理、设备（Device）管理、执行流（Stream）管理、事件（Event）管理、核（Kernel）函数执行等功能。</li>
+<li><strong>Task Schedule：</strong> 运行在 Device 侧的任务调度 CPU 上，负责将 Runtime 分发 的具体任务进一步分发到 AICPU 上。它也可以通过硬件任务调度器（HWTS）把任务分配到 AI Core 上执行，并在执行完成后返回任务执行的结果给运行管理器。通常 Task Schedule 处理的主要事务有 AI Core 任务、AI CPU 任务、内存复制任务、事件记录任务、事件等待任务、清理维护（Maintenance）任务和性能分析（Profiling）任务。</li>
+</ul>
+</li>
+<li><p>Ascend C 支持 CPU 和 NPU 孪生调试，比 CUDA 更高效</p>
+<ul>
+<li>CUDA 官方只支持上板调试，问题定位难，性能优化难。</li>
+<li>Ascend C 支持 CPU 和 NPU 孪生调试，通过 Ascend C 算子孪生调试技术，充分发挥 CPU 和 NPU 的调测优势，提升算子调试效率。</li>
+</ul>
+</li>
+</ul>
+<p>‍</p>
+<h2 id="缩略语"><a href="#缩略语" class="headerlink" title="缩略语"></a>缩略语</h2><ul>
+<li><strong>AIPP：AI Pre-Processing AI 预处理</strong></li>
+<li><strong>BLAS：Basic Linear Algebra Subprograms 基础线性代数程序集</strong></li>
+<li><strong>DVPP：Digital Video Pre-Processor 数字图像预处理</strong></li>
+<li><strong>HCCL：Huawei Collective Communication Library 华为集成通信算子库</strong></li>
+<li><strong>JIT：Just In Time 即时编译</strong></li>
+<li><strong>NN：Neural Network 神经网络</strong></li>
+<li><strong>SIMD：Single Instruction Multiple Data 单指令流多数据流</strong></li>
+<li><strong>SPMD：Single Program Multiple Data 单程序多数据</strong></li>
+</ul>
+<p>‍</p>
+<p>‍</p>
+<p>‍</p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+            </div>
+            <div class="post-nav-item">
+                <a href="/2026/02/26/hello-world/" rel="next" title="Hello World">
+                  Hello World <i class="fa fa-angle-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="copyright">
+    &copy; 
+    <span itemprop="copyrightYear">2026</span>
+    <span class="with-love">
+      <i class="fa fa-heart"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">FJX</span>
+  </div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/pisces/" rel="noopener" target="_blank">NexT.Pisces</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+  <div class="sidebar-dimmer"></div>
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+</body>
+</html>
