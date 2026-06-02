@@ -9,12 +9,16 @@ const blog = defineCollection({
 	schema: ({ image }) =>
 		z.object({
 			title: z.string(),
-			description: z.string(),
-			// Transform string to Date object
-			pubDate: z.coerce.date(),
+			description: z.string().default(''),
+			// Hexo publisher 传 `date`，手动写的用 `pubDate`，两者都兼容
+			date: z.coerce.date().optional(),
+			pubDate: z.coerce.date().optional(),
 			updatedDate: z.coerce.date().optional(),
 			heroImage: z.optional(image()),
-		}),
+		}).transform(({ date, pubDate, ...rest }) => ({
+			...rest,
+			pubDate: pubDate ?? date ?? new Date(),
+		})),
 });
 
 export const collections = { blog };
