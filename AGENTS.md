@@ -155,13 +155,13 @@ type Props = HTMLAttributes<'a'>;
 
 ## SiYuan Publishing Workflow
 
-通过 **siyuan-plugin-publisher** 实现「思源笔记写 → 一键发布」：
+通过 **siyuan-plugin-publisher**（v1.41+ 原生支持 Astro）实现「思源笔记写 → 一键发布」：
 
-1. 思源中点击文档 → 发布 → 选择 GitHub Hexo 平台
-2. 插件将文档导出为 Markdown（YAML frontmatter），通过 GitHub API 提交到 `src/content/blog/`
-3. Push 触发 GitHub Actions → Astro 构建 → 部署
+1. 思源中点击文档 → 发布 → 选择 **GitHub Astro** 平台
+2. 插件将文档导出为 Markdown（含 Astro 兼容的 `pubDate` frontmatter），通过 GitHub API 提交到 `src/content/blog/`
+3. Push 触发 GitHub Actions → Astro 构建 → 部署到 `https://blog.maniact.cloud`
 
 Schema 兼容性：
-- 思源 publisher 生成 `date` 字段，Astro schema 同时接受 `date` 和 `pubDate`，通过 `.transform()` 归一化为 `pubDate`
+- Publisher 原生生成 `pubDate`，同时兼容旧 Hexo 模式遗留的 `date` 字段
 - `description` 设 `default('')`，publisher 未提供时不会报错
-- Publisher 路径配置：`src/content/blog`（已配置在 `D:\siyuan\data\storage\syp\sy-p-plus-cfg.json`）
+- Publisher 路径配置：`src/content/blog`（`D:\siyuan\data\storage\syp\sy-p-plus-cfg.json`）

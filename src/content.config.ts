@@ -10,7 +10,7 @@ const blog = defineCollection({
 		z.object({
 			title: z.string(),
 			description: z.string().default(''),
-			// Hexo publisher 传 `date`，手动写的用 `pubDate`，两者都兼容
+			// 兼容旧 Hexo publisher（date）和 Astro 原生（pubDate）
 			date: z.coerce.date().optional(),
 			pubDate: z.coerce.date().optional(),
 			updatedDate: z.coerce.date().optional(),
