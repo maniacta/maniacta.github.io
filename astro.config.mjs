@@ -6,7 +6,7 @@ import { defineConfig, fontProviders } from 'astro/config';
 
 // https://astro.build/config
 export default defineConfig({
-	site: 'https://maniacta.github.io',
+	site: 'https://blog.maniact.cloud',
 	integrations: [mdx(), sitemap()],
 	fonts: [
 		{

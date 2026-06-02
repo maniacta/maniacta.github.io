@@ -142,3 +142,26 @@ type Props = HTMLAttributes<'a'>;
 - 项目无测试框架配置（无 vitest/jest/playwright 依赖）
 - 类型检查：`npx astro check`（基于 `astro/tsconfigs/strict`）
 - 构建验证：`npm run build` 成功即表示所有页面可正确生成
+
+## Deployment
+
+站点通过 GitHub Actions 自动部署到 GitHub Pages。
+
+- **Workflow**: `.github/workflows/deploy.yml`
+  - `push` 到 `main` 分支时触发
+  - 构建：`npm ci` → `npm run build`，产出 `dist/` artifact
+  - 部署：`actions/deploy-pages` 发布到 `https://maniacta.github.io`
+- **Pages Source**: 仓库 Settings → Pages → Source 必须设为 **GitHub Actions**
+
+## SiYuan Publishing Workflow
+
+通过 **siyuan-plugin-publisher** 实现「思源笔记写 → 一键发布」：
+
+1. 思源中点击文档 → 发布 → 选择 GitHub Hexo 平台
+2. 插件将文档导出为 Markdown（YAML frontmatter），通过 GitHub API 提交到 `src/content/blog/`
+3. Push 触发 GitHub Actions → Astro 构建 → 部署
+
+Schema 兼容性：
+- 思源 publisher 生成 `date` 字段，Astro schema 同时接受 `date` 和 `pubDate`，通过 `.transform()` 归一化为 `pubDate`
+- `description` 设 `default('')`，publisher 未提供时不会报错
+- Publisher 路径配置：`src/content/blog`（已配置在 `D:\siyuan\data\storage\syp\sy-p-plus-cfg.json`）
