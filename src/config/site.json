@@ -1,0 +1,51 @@
+{
+  "site": {
+    "title": "maniacta's blog",
+    "description": "技术笔记与随想",
+    "url": "https://blog.maniact.cloud",
+    "author": "maniacta",
+    "email": "",
+    "logo": "/logo.svg",
+    "homeTitle": "maniacta",
+    "homeSubtitle": "技术笔记、随想与踩坑记录。",
+    "blogSubtitle": "技术笔记与随想",
+    "projectSubtitle": "",
+    "brandTitle": "maniacta"
+  },
+  "giscus": {
+    "enabled": false,
+    "repo": "",
+    "repoId": "",
+    "category": "",
+    "categoryId": "",
+    "mapping": "pathname",
+    "strict": "0",
+    "theme": "preferred_color_scheme",
+    "reactionsEnabled": true,
+    "emitMetadata": false,
+    "inputPosition": "top",
+    "lang": "en",
+    "loading": "lazy"
+  },
+  "seo": {
+    "openGraph": {
+      "twitterCreator": "@maniacta",
+      "defaultImageWidth": 1200,
+      "defaultImageHeight": 630
+    },
+    "analytics": {
+      "googleAnalyticsId": "",
+      "baiduAnalyticsId": ""
+    }
+  },
+  "social": {
+    "github": "https://github.com/maniacta"
+  },
+  "features": {
+    "darkMode": true,
+    "tableOfContents": true,
+    "readingTime": true,
+    "search": true,
+    "comments": false
+  }
+}
