@@ -1,15 +1,13 @@
 ---
 title: Vibe Coding 实战手册
-date: '2026-01-09 00:00:00'
-updated: '2026-06-02 17:22:57'
+description: ''
+pubDate: '2026-01-09'
 tags:
   - AI编程
   - Claude-Code
   - 方法论
   - 提示词工程
-permalink: /post/vibe-coding-practical-manual-25ecq7.html
-comments: true
-toc: true
+keywords: AI编程,Claude-Code,方法论,提示词工程
 ---
 
 
