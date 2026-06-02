@@ -14,11 +14,6 @@ keywords: AI编程,Claude-Code,方法论,提示词工程
 
 # Vibe Coding 实战手册
 
-# Vibe Coding 实战手册
-
-date: 2026/01/09  
-author: zone
-
 > AI 编程的本质不是「让 AI 写代码」，而是「让 AI 理解你想要什么」。  
 > 你的需求描述能力，决定了 AI 的输出质量。
 
