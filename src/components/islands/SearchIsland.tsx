@@ -48,8 +48,9 @@ const getLink = (path: string) => {
   const basePath = getBasePath();
   // Ensure path starts with a slash
   const normalizedPath = path.startsWith('/') ? path : `/${path}`;
-  // Avoid double slashes when concatenating
-  return `${basePath}${normalizedPath}`;
+  // Avoid double slashes when basePath is '/'
+  const base = basePath.endsWith('/') ? basePath.slice(0, -1) : basePath;
+  return `${base}${normalizedPath}`;
 };
 
 // Extract search result card component to reduce rendering overhead
