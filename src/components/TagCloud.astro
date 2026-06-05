@@ -41,7 +41,7 @@ Object.entries(projectTagCounts).forEach(([tag, count]) => {
 // Convert to array, sort, and slice
 const tags = Object.entries(combinedTagCounts).map(([name, count]) => ({ name, count }));
 tags.sort((a, b) => b.count - a.count);
-const topTags = tags.slice(0, 12);
+const topTags = tags;
 const totalTagCount = tags.length;
 ---
 
