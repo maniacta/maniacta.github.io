@@ -1,22 +1,22 @@
 /**
- * Extracts headings from markdown content
+ * Extracts headings from markdown content.
+ * 使用 github-slugger 生成 slug，与 rehype-slug 保持一致，确保中文等 Unicode 标题能正确跳转。
  * @param content - The markdown content
  * @returns An array of heading objects with depth, slug, and text
  */
+import GithubSlugger from 'github-slugger';
+
 export async function getHeadings(content: string) {
   // Regular expression to match markdown headings
   const headingRegex = /^(#{1,6})\s+(.+)$/gm;
   const headings = [];
+  const slugger = new GithubSlugger();
   let match;
 
   while ((match = headingRegex.exec(content)) !== null) {
     const depth = match[1].length;
     const text = match[2].trim();
-    const slug = text
-      .toLowerCase()
-      .replace(/[^\w\s-]/g, '')
-      .replace(/[\s_-]+/g, '-')
-      .replace(/^-+|-+$/g, '');
+    const slug = slugger.slug(text);
 
     headings.push({
       depth,
